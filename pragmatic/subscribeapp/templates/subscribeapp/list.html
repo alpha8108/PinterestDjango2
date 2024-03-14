@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 
-{% block content %}
 
+{% block content %}
+<div style="text-align: center; font-size: .8rem;">구독한 게시판의 모든 게시글들이 나열됩니다.</div>
+<hr>
 <div>
     {% include 'snippets/list_fragment.html' with article_list=article_list %}
 </div>

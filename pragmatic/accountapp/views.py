@@ -34,7 +34,7 @@ class AccountDetailView(DetailView, MultipleObjectMixin):
     context_object_name = 'target_user' # 다른 사람이 와도 내 정보를 보게, 
     template_name = 'accountapp/detail.html'
 
-    paginate_by = 25
+    paginate_by = 10
 
     #ㅈㄴ 이해안되는 코드 ;;
     def get_context_data(self, **kwargs):
