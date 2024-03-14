@@ -1,0 +1,46 @@
+.pragmatic_logo {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.pragmatic_footer_button {
+    font-size: 0.9rem;
+}
+
+.pragmatic_footer{
+    text-align: center; 
+    margin-top:2rem;
+}
+
+.pragmatic_header{
+    text-align: center; 
+    margin: 2rem 0;
+}
+
+/* 스크린사이즈가 500이하로 떨어지면 적용 미디어쿼리?*/
+@media screen and (max-width:500px) {
+    html {
+        font-size:13px;
+    }
+
+}
+
+
+a {
+    color:black;
+
+}
+
+a:hover {
+    color: black;
+    text-decoration:none;
+}
+
+.pragmatic_header_nav {
+    margin: 0 0.5rem;
+}
+
+.pragmatic_header_navbar {
+    margin: 1rem 0;
+}

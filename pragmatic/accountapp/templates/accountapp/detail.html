@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div>
+    <div style="text-align: center; max-width:500px; margin:4rem auto;">
+
+        <!-- 강의에선 없앴으나 그냥 남겨봄. -->
+        <p>
+            {{ target_user.date_joined }} 에 가입함
+        </p>
+
+       
+        <!--프로필이 있으면 이미지도 보여주고  -->
+        {% if target_user.profile %}
+        <img src="{{ target_user.profile.image.url }}" alt=""
+        style="height: 12rem; width: 12rem; border-radius:20rem; margin-bottom:2rem; object-fit:cover;">
+
+        <h2 style="font-family: 'NanumSquareB'">
+            {{ target_user.profile.nickname }}
+            {% if target_user == user %}
+            
+            <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}"
+            class="material-icons" style="box-shadow: 0 0 10px #ccc; border-radius:10rem; padding: .4rem;">
+                edit
+            </a>
+            
+            {% endif %}
+            <!-- 대화명 -->
+        <h5 style="margin-bottom:3rem;">
+            {{ target_user.profile.message }}
+        </h5>
+        </h2>
+        <!-- 프로필이 없는 경우 본인일땐 Create Profile 본인이 아니면-->
+        {% else %}
+        {% if target_user == user %}
+        <a href="{% url 'profileapp:create' %}">
+        <h2 style="font-family: 'NanumSquareB'">
+            Create Profile
+        </h2>
+        </a>
+        <!-- 프로필이 없고 본인이 아닌경우 -->
+        {% else %}
+        <h2>
+            닉네임이 없는 유저입니다.
+        </h2>
+        {% endif %}
+        {% endif %}
+
+        
+
+        <!-- 지금보고있는 유저의 페이지의 유저와 들어와있는 유저가 같다면 보여줄게 -->
+        {% if target_user == user %}
+        <a href="{% url 'accountapp:update' pk=user.pk %}"
+        class="material-icons" 
+        style="box-shadow: 0 0 10px black; border-radius:10rem; padding: .4rem;">
+            settings
+        </a>
+        
+        <a href="{% url 'accountapp:delete' pk=user.pk %}"
+        class="material-icons" 
+        style="box-shadow: 0 0 10px indianred; border-radius:10rem; padding: .4rem;">
+            cancel
+        </a>
+        {% endif %}
+
+    </div>
+
+
+    <div>
+        {% include 'snippets/list_fragment.html' with article_list=object_list %}
+    </div>
+</div>
+
+{% endblock %}

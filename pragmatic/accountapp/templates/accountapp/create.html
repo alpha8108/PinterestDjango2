@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div style="text-align: center; max-width: 500px; margin: 4rem auto;">
+    <div class="mb-4">
+        <h4>SignUp</h4>
+    </div>
+    <!-- accoutapp에 있는 create로 라우팅해라. -->
+    <form action="{% url 'accountapp:create'%}" method="post">
+        {% csrf_token %}
+        <!-- 이름,패스워드확인,이메일 다 만들고 스타일링하는게 아니라 이미 되어있는거, 제공한거 쓴거임 -->
+        <!-- views.py에서 form_class = UserCreationForm 이렇게 지정해준거 이거임. -->
+        <!-- {{ form }} -->
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-dark rounded-pill col-6 mt-4" value="가입">
+    </form>
+</div>
+
+
+{% endblock %}

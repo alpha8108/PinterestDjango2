@@ -1,0 +1,7 @@
+<!-- 위에 보면 display속성이 flex로 되어있는데 우리는 블럭으로 해야하니까 -->
+<div style="display: block; text-align: center;"> 
+    <img src="{{ project.image.url }}" alt="">
+    <h5 class="mt-2" style="font-family:'NanumSquareB' ">
+        {{ project.title | truncatechars:8 }}
+    </h5>
+</div>
