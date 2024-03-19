@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "commentapp",
     "projectapp",
     "subscribeapp",
+    "apartmentapp",
     
 ]
 

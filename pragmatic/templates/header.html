@@ -18,6 +18,11 @@
             <span>Subscription</span>
         </a>
         {% if not user.is_authenticated %}
+        </a>
+        <a href="{% url 'apartmentapp:predict' %}"
+        class="pragmatic_header_nav">
+            <span>APT</span>
+        </a>
         <a href="{% url 'accountapp:login' %}?next={{ request.path }}"
         class="pragmatic_header_nav">
             <span>login</span>
@@ -25,8 +30,11 @@
         <a href="{% url 'accountapp:create' %}"
         class="pragmatic_header_nav">
             <span>SignUp</span>
-        </a>
         {% else %}
+        <a href="{% url 'apartmentapp:predict' %}"
+        class="pragmatic_header_nav">
+            <span>APT</span>
+        </a>
         <!-- detail다음에pk받아와야하니까 pk=user.pk없으면 에러남 -->
         <a href="{% url 'accountapp:detail' pk=user.pk %}"
         class="pragmatic_header_nav">

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}     
+
+    <h3 style="text-align: center; font-family:'Courier New', Courier, monospace"> 보증금 예측 </h3>
+<div style="text-align: center; max-width: 500px; margin: 4rem auto;">
+    <form action="{% url 'apartmentapp:predict' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-dark rounded-pill col-3 mt-4" value="predict">
+    </form>
+    
+</div>
+                     
+
+{% endblock %}
