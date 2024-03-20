@@ -4,15 +4,78 @@
 
 {% block content %}     
 
+<!-- <script>
+    function validateForm() {
+        // 각 입력 필드의 값을 가져옵니다.
+        var sggNm = document.getElementById("id_SGG_NM").value; //지역구명
+        var rentArea = document.getElementById("id_RENT_AREA").value; //임대면적
+        var rentFee = document.getElementById("id_RENT_FEE").value; // 임대료
+        var buildYear = document.getElementById("id_BUILD_YEAR").value; // 건축년도
+        var houseGbnNm = document.getElementById("id_HOUSE_GBN_NM").value; // 건물용도
+        var beforeGrntyAmount = document.getElementById("id_BEFORE_GRNTY_AMOUNT").value; // 종전보증금
+        var beforeMtRentChrge = document.getElementById("id_BEFORE_MT_RENT_CHRGE").value; // 종전임대료
+
+        // 각 필드가 비어 있는지 확인합니다.
+        if (sggNm == "" || rentArea == "" || rentFee == "" || buildYear == "" || houseGbnNm == "" || beforeGrntyAmount == "" || beforeMtRentChrge == "") {
+            alert("모든 필수 입력란을 채워주세요.");
+            return false; // 폼 제출을 중단합니다.
+        }
+        return true; // 폼 제출을 허용합니다.
+    }
+</script> -->
+
     <h3 style="text-align: center; font-family:'Courier New', Courier, monospace"> 보증금 예측 </h3>
-<div style="text-align: center; max-width: 500px; margin: 4rem auto;">
-    <form action="{% url 'apartmentapp:predict' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="btn btn-dark rounded-pill col-3 mt-4" value="predict">
-    </form>
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
+        <form action="{% url 'apartmentapp:predict' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-dark rounded-pill col-3 mt-4" value="Predict">
+            <!-- <label for="id_SGG_NM">지역구:</label>
+            <select id="id_SGG_NM" name="SGG_NM" class="form-control">
+            {% for sgg_nm in SGG_NM %}
+            <option value='{{ sgg_nm }}'>{{ sgg_nm }}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <label for="id_RENT_AREA">임대면적:</label>
+            <input type="number" id="id_RENT_AREA" name="RENT_AREA" class="form-control" placeholder="평수를 입력하세요" min="0">
+            <br>
+            <label for="id_RENT_FEE">임대료(만원):</label>
+            <input type="number" id="id_RENT_FEE" name="RENT_FEE" class="form-control" placeholder="임대료를 입력하세요" min="0">
+            <br>
+            <label for="id_BUILD_YEAR">건축년도:</label>
+            <select id="id_BUILD_YEAR" name="BUILD_YEAR" class="form-control">
+            {% for year in BUILD_YEAR %}
+            <option value='{{ year}}'>{{ year }}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <label for="id_HOUSE_GBN_NM">건물용도:</label>
+            <select id="id_HOUSE_GBN_NM" name="HOUSE_GBN_NM" class="form-control">
+                <option value="apt">아파트</option>
+                <option value="apt_complex">연립다세대</option>
+                <option value="officetel">오피스텔</option>
+            </select>
+            <br>
+            <label for="id_BEFORE_GRNTY_AMOUNT">종전보증금:</label>
+            <input type="number" id="id_BEFORE_GRNTY_AMOUNT" name="BEFORE_GRNTY_AMOUNT" class="form-control" placeholder="종전 임대료를 입력하세요" min="0">
+            <br>
+            <label for="id_BEFORE_MT_RENT_CHRGE">종전임대료:</label>
+            <input type="number" id="id_BEFORE_MT_RENT_CHRGE" name="BEFORE_MT_RENT_CHRGE" class="form-control" placeholder="종전 임대료를 입력하세요" min="0">
+            <br>
+            <input type="submit" class="btn btn-dark rounded-pill col-3 mt-4" value="Predict"> -->
+        </form>
+
+    <h1>
+        {{ result }}
+    </h1>
     
+
+
+
 </div>
+
+    
                      
 
 {% endblock %}

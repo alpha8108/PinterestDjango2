@@ -1,7 +1,21 @@
 from django import forms
 
+seoul_districts = [
+    '강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구',
+    '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구',
+    '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
+]
+
+def sgg_nm():
+    global seoul_districts
+    SGG_NM_CHOICES = []
+    for sgg in seoul_districts:
+        SGG_NM_CHOICES.append((sgg, sgg)) 
+    return SGG_NM_CHOICES
+
+
 class MyForm(forms.Form):
-    SGG_NM_CHOICES = [('choice1', 'choice1'), ('choice2', 'Choice 2'), ('choice3', 'Choice 3')]
+    SGG_NM_CHOICES = sgg_nm()
     BUILD_YEAR_CHOICES = [(str(year), str(year)) for year in range(1970, 2025)]
     HOUSE_GBN_NM_CHOICES = [('apt', '아파트'), ('apt_complex', '연립다세대'), ('officetel', '오피스텔')]
 
