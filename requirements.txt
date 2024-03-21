@@ -1,0 +1,12 @@
+pandas
+matplotlib
+seaborn
+plotly
+streamlit
+jupyterlab
+requests
+beautifulsoup4
+selenium
+python-dotenv
+streamlit-option-menu
+scikit-learn

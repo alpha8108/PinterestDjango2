@@ -66,9 +66,9 @@
             <input type="submit" class="btn btn-dark rounded-pill col-3 mt-4" value="Predict"> -->
         </form>
 
-    <h1>
-        {{ result }}
-    </h1>
+        {% if result %}
+        <h3><p>예측 보증금은 <br> {{ result|floatformat:1 }}(만원) 입니다. </p></h3>
+        {% endif %}
     
 
 

@@ -1,4 +1,9 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from .models import * 
+
+from joblib import load
+import pandas as pd
 
 # Create your views here.
 
@@ -10,18 +15,28 @@ seoul_districts = [
     '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'
 ]
 
-def my_form_view(request):
-    # form = MyForm()
-    # return render(request, 'apartmentapp/predict.html', {'form': form})
-    # if request.method == 'POST':
-    #     # 폼 제출 시 기본값을 출력할 것이므로, 이를 알리는 변수 설정
-    #     show_default = True
-    #     # 다른 처리 작업 수행 가능
-    #     return render(request, 'apartment/predict.html', {'show_default': show_default})
-    # else:
-    #     # 폼이 제출되지 않았을 때
-    # return render(request, 'apartment/predict.html', {'show_default': '보증금을 예측해드립니다'})
+def predict_rent_gtn_model(model_path, SGG_NM, RENT_AREA, RENT_FEE, BUILD_YEAR, HOUSE_GBN_NM, BEFORE_GRNTY_AMOUNT, BEFORE_MT_RENT_CHRGE):
+    # 모델 불러오기
+    pipeline = load(model_path)
 
+    # 데이터프레임 생성
+    df = pd.DataFrame([{
+        'SGG_NM': SGG_NM, 
+        'RENT_AREA': RENT_AREA,   
+        'RENT_FEE': RENT_FEE,    
+        'BUILD_YEAR': BUILD_YEAR,   
+        'HOUSE_GBN_NM': HOUSE_GBN_NM,  
+        'BEFORE_GRNTY_AMOUNT' : BEFORE_GRNTY_AMOUNT,  
+        'BEFORE_MT_RENT_CHRGE' : BEFORE_MT_RENT_CHRGE  
+    }])
+
+    # 예측 값 생성
+    df['평수'] = df['RENT_AREA'] * 0.3025
+    prediction = pipeline.predict(df)
+
+    return prediction[0]
+
+def my_form_view(request):
     if request.method == 'POST':
         form = MyForm(request.POST)
         if form.is_valid():
@@ -34,10 +49,14 @@ def my_form_view(request):
             before_grnty_amount = form.cleaned_data['BEFORE_GRNTY_AMOUNT']
             before_mt_rent_chrge = form.cleaned_data['BEFORE_MT_RENT_CHRGE']
 
+
             # 여기서 종속되는 결과값 계산
             # 예: 결과 = rent_area * rent_fee + build_year * before_grnty_amount
 
-            result = f'{sgg_nm}, {rent_area}평 대, 임대료{rent_fee}, 건축년도{build_year}, 건물용도{house_gbn_nm} 종전 보증금 {before_grnty_amount} 종전임대료{before_mt_rent_chrge}를 고르셨습니다.'
+            model_path = 'models/RENT_GTN_MODEL.joblib'  # 모델 파일 경로 (이렇게 하는게 맞나...?)
+            result = predict_rent_gtn_model(model_path, sgg_nm, rent_area, rent_fee, build_year, house_gbn_nm, before_grnty_amount, before_mt_rent_chrge)
+            # 어떻게 불러와야할 지 모르겠음 ....이게 된거 맞나..? 
+
 
             # 계산된 결과를 템플릿에 전달하여 출력
             return render(request, 'apartmentapp/predict.html', {'form':form,'result': result})
