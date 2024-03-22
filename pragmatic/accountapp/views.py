@@ -26,7 +26,7 @@ has_ownership = [account_ownership_required, login_required]
 class AccountCreateView(CreateView): #CBV만들떄 주요한 파라미터 만든다고했는데        
     model= User
     form_class = UserCreationForm # 계정은 중요한거라서 장고에서 폼을 제공해줌(만들필요 X )
-    success_url = reverse_lazy('accountapp:hello_world')  #성공했으면 가는 / 그리고 reverse_lazy는 클래스형에서 씀 
+    success_url = reverse_lazy('articleapp:list')  #성공했으면 가는 / 그리고 reverse_lazy는 클래스형에서 씀 
     template_name = 'accountapp/create.html'  #회원가입을 할 때 보일 비주얼폼 
 
 class AccountDetailView(DetailView, MultipleObjectMixin):
@@ -47,13 +47,11 @@ class AccountUpdateView(UpdateView):
     model= User
     context_object_name = 'target_user'
     form_class = AccountUpdateForm
-    success_url = reverse_lazy('accountapp:hello_world') 
+    success_url = reverse_lazy('articleapp:list') 
     template_name = 'accountapp/update.html'  
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
-@method_decorator(account_ownership_required, 'get')
-@method_decorator(account_ownership_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
