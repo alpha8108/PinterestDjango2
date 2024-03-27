@@ -76,5 +76,5 @@ class ArticleListView(ListView):
     model = Article
     context_object_name = 'article_list'
     template_name = 'articleapp/list.html'
-    success_url = reverse_lazy('articleapp:list')
-    paginate_by = 10
+    success_url = reverse_lazy('articleapp:list')  
+    paginate_by = 10   
